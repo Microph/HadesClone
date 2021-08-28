@@ -123,6 +123,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &408326992 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3339481645408498929, guid: 399fa85239bbe1f4596ba917720228a8, type: 3}
+  m_PrefabInstance: {fileID: 1120761198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &408326993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408326992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165dbfa56228375448cb2519faeb3782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410117349
 GameObject:
   m_ObjectHideFlags: 0
@@ -5727,6 +5744,10 @@ PrefabInstance:
     - target: {fileID: 3339481645408498929, guid: 399fa85239bbe1f4596ba917720228a8, type: 3}
       propertyPath: m_Name
       value: Player_Isometric_Witch
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339481645408498930, guid: 399fa85239bbe1f4596ba917720228a8, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3339481645408498932, guid: 399fa85239bbe1f4596ba917720228a8, type: 3}
       propertyPath: m_RootOrder
