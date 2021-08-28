@@ -36,7 +36,7 @@ public class IsometricPlayerMovementController : MonoBehaviour
         Vector2 normDir = dir.normalized;
         float angle = Vector2.Angle(Vector2.up, normDir) * Mathf.Deg2Rad;
         float finalSpeed = maxMovementSpeed * (0.5f + (0.5f * Mathf.Sin(angle)) ); //TODO: replace 0.5 with current Y iso scales setting
-        Debug.Log(finalSpeed);
+        Debug.Log("GetDirectionMovementSpeed:" + finalSpeed);
         return finalSpeed;
     }
 }
