@@ -60,14 +60,14 @@ public class IsometricPlayerMovementController : MonoBehaviour
     {
         if (elaspedDashingTime >= dashDuration)
         {
-            playerCollider.OnExitEnemyCollision();
+            playerCollider.OnExitEnemyCollisionDashState();
             currentState = NormalState;
             return;
         }
-        
+
         if(playerCollider.isCollidedWithEnemy)
         {
-            playerCollider.OnEnterEnemyCollision();
+            playerCollider.OnEnterEnemyCollisionDashState();
         }
 
         Vector2 currentPos = rbody.position;

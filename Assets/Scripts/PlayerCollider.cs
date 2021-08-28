@@ -6,7 +6,7 @@ public class PlayerCollider : MonoBehaviour
 
     public Collider2D enemyCollider;
 
-    public void OnEnterEnemyCollision()
+    public void OnEnterEnemyCollisionDashState()
     {
         if(enemyCollider != null)
         {
@@ -14,7 +14,7 @@ public class PlayerCollider : MonoBehaviour
         }
     }
 
-    public void OnExitEnemyCollision()
+    public void OnExitEnemyCollisionDashState()
     {
         if(enemyCollider != null)
         {
