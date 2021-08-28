@@ -7,6 +7,8 @@ public class IsometricPlayerMovementController : MonoBehaviour
 {
     public float maxMovementSpeed = 1f;
 
+    [SerializeField]
+    private PlayerCollider playerCollider;
     private InputManager inputManager;
     private IsometricCharacterRenderer isoRenderer;
     private Action currentState;
@@ -58,8 +60,14 @@ public class IsometricPlayerMovementController : MonoBehaviour
     {
         if (elaspedDashingTime >= dashDuration)
         {
+            playerCollider.OnExitEnemyCollision();
             currentState = NormalState;
             return;
+        }
+        
+        if(playerCollider.isCollidedWithEnemy)
+        {
+            playerCollider.OnEnterEnemyCollision();
         }
 
         Vector2 currentPos = rbody.position;
