@@ -337,7 +337,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2704545278254742489, guid: 73e1f4e9eee7854488e0bcb0c70822eb, type: 3}
   projectileAttackRangeCenterPivotTransform: {fileID: 3040100160090611723}
   projectileSpeed: 12
-  projectileAttackDuration: 0
+  projectileAttackDuration: 0.1
   projectileAttackCooldown: 0.2
 --- !u!114 &408326993
 MonoBehaviour:
