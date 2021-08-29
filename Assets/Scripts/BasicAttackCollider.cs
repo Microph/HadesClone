@@ -3,25 +3,19 @@ using System.Collections.Generic;
 
 public class BasicAttackCollider : MonoBehaviour
 {
-    private Collider2D basicAttackCollider;
     private int currentAttackPoint = 0;
     private List<IDamageable> alreadyAttackedList = new List<IDamageable>();
 
-    private void Awake()
-    {
-        basicAttackCollider = GetComponent<Collider2D>();
-    }
-
     public void Reset()
     {
-        basicAttackCollider.enabled = false;
+        gameObject.SetActive(false);
         currentAttackPoint = 0;
         alreadyAttackedList.Clear();
     }
 
     public void OnEnterBasicAttackingState(int attackPoint)
     {
-        basicAttackCollider.enabled = true;
+        gameObject.SetActive(true);
         currentAttackPoint = attackPoint;
     }
 

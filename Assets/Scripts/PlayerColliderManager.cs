@@ -10,12 +10,16 @@ public class PlayerColliderManager : MonoBehaviour
     private Collider2D playerVSEnemyCollider;
 
     [SerializeField]
+    private RotateZToLookAtCursor attackRangeRotator;
+
+    [SerializeField]
     private BasicAttackCollider basicAttackCollider;
 
     private void Reset()
     {
         playerVSEnemyCollider.isTrigger = false;
         basicAttackCollider.Reset();
+        attackRangeRotator.enabled = true;
     }
 
     public void OnEnterNormalState()
@@ -33,6 +37,7 @@ public class PlayerColliderManager : MonoBehaviour
     public void OnEnterBasicAttackingState(int attackPoint)
     {
         Reset();
+        attackRangeRotator.enabled = false;
         basicAttackCollider.OnEnterBasicAttackingState(attackPoint);
     }
 }
