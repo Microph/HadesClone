@@ -77,8 +77,25 @@ public class IsometricPlayerController : MonoBehaviour
 
     private void NormalState()
     {
-        //check dash input
-        if(inputManager.HasDashButtonOnDown())
+        if (DetermineDashingState())
+        {
+            return;
+        }
+        if (DetermineBasicAttackState())
+        {
+            return;
+        }
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
+        inputVector = Vector2.ClampMagnitude(inputVector, 1);
+        MoveCharacter(inputVector, 1);
+    }
+
+    private bool DetermineDashingState()
+    {
+        if (inputManager.HasDashButtonOnDown())
         {
             inputManager.ResetDashButtonState();
             elaspedDashingTime = 0;
@@ -87,10 +104,14 @@ public class IsometricPlayerController : MonoBehaviour
                 fixedUpdateAction: () => DashingState(currentFacingDirection)
             );
             playerColliderManager.OnEnterDashingState();
-            return;
+            return true;
         }
 
-        //Check basic attack input
+        return false;
+    }
+
+    private bool DetermineBasicAttackState()
+    {
         if(
             inputManager.HasBasicAttackButtonOnDown()
             && elaspedBasicAttackCoolDown >= basicAttackCooldown
@@ -104,19 +125,20 @@ public class IsometricPlayerController : MonoBehaviour
                 fixedUpdateAction: () => BasicAttackingState(faceToCursorDir)
             );
             playerColliderManager.OnEnterBasicAttackingState(basicAttackPoint);
-            return;
+            return true;
         }
         else
         {
             elaspedBasicAttackCoolDown += Time.fixedDeltaTime;
         }
 
+        return false;
+    }
+
+    private void MoveCharacter(Vector2 dir, float speedModifier)
+    {
         Vector2 currentPos = rbody.position;
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
-        inputVector = Vector2.ClampMagnitude(inputVector, 1);
-        Vector2 movement = inputVector * GetDirectionMovementSpeed(inputVector, maxMovementSpeed);
+        Vector2 movement = dir * GetDirectionMovementSpeed(dir, maxMovementSpeed) * speedModifier;
         Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
         SetCurrentFacingDirection(movement);
         isoRenderer.SetDirection(movement);
@@ -134,12 +156,13 @@ public class IsometricPlayerController : MonoBehaviour
             playerColliderManager.OnEnterNormalState();
             return;
         }
+
+        if(DetermineBasicAttackState())
+        {
+            return;
+        }
         
-        Vector2 currentPos = rbody.position;
-        Vector2 movement = dashSpeedModifier * dir * GetDirectionMovementSpeed(dir, maxMovementSpeed);
-        Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
-        isoRenderer.SetDirection(movement);
-        rbody.MovePosition(newPos);
+        MoveCharacter(dir, dashSpeedModifier);
         elaspedDashingTime += Time.fixedDeltaTime;
     }
 
