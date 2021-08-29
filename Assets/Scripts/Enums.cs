@@ -7,6 +7,7 @@ public static class Enums
     public enum PlayerCharacterState
     {
         Normal,
-        Dashing
+        Dashing,
+        BasicAttacking
     }
 }

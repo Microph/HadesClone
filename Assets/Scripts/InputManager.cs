@@ -12,15 +12,22 @@ public class InputManager : MonoBehaviour
     }
 
     private ButtonState dashButtonState = ButtonState.Default;
+    private ButtonState basicAttackButtonState = ButtonState.Default;
 
     void Update()
     {
-        bool isDashButtonDown = Input.GetButtonDown("Dash");
-        //Debug.Log("isDashButtonDown" + isDashButtonDown);
-        if (isDashButtonDown) 
+        if (Input.GetButtonDown("Dash"))
+        {
             dashButtonState = ButtonState.OnDowned;
+        }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            basicAttackButtonState = ButtonState.OnDowned;
+        }
     }
 
+
+    //TODO: Refactor these common patterns
     public bool HasDashButtonOnDown()
     {
         return dashButtonState == ButtonState.OnDowned;
@@ -29,5 +36,15 @@ public class InputManager : MonoBehaviour
     public void ResetDashButtonState()
     {
         dashButtonState = ButtonState.Default;
+    }
+
+    public bool HasBasicAttackButtonOnDown()
+    {
+        return basicAttackButtonState == ButtonState.OnDowned;
+    }
+
+    public void ResetBasicAttackButtonState()
+    {
+        basicAttackButtonState = ButtonState.Default;
     }
 }
