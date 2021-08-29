@@ -19,7 +19,7 @@ public class BasicAttackCollider : MonoBehaviour
         currentAttackPoint = attackPoint;
     }
 
-    private void OnTriggerStay2D(Collider2D col)
+    protected virtual void OnTriggerStay2D(Collider2D col)
     {
         if(
             col.GetComponent<IDamageable>() is IDamageable iDamageable

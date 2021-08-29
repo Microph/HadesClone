@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
         return finalSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    protected virtual void OnTriggerEnter2D(Collider2D col)
     {
         if(
             col.GetComponent<IDamageable>() is IDamageable iDamageable
