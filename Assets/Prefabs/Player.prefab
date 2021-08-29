@@ -255,7 +255,6 @@ GameObject:
   - component: {fileID: 2079923369}
   - component: {fileID: 408326993}
   - component: {fileID: 408326998}
-  - component: {fileID: 333515125603998340}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -352,20 +351,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sortingOrderOffset: 1000
---- !u!114 &333515125603998340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3339481645408498929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8c8d11bc3d4344459ca5ea356db9906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 50
-  hpUI: {fileID: 6590433498781656904}
 --- !u!1 &3955495021675870445
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7478866439836388081}
   - component: {fileID: 7967002114052190361}
+  - component: {fileID: 8764485504794449720}
   m_Layer: 6
   m_Name: MainCollider
   m_TagString: Untagged
@@ -413,6 +399,20 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 3, y: 1.5}
   m_Direction: 1
+--- !u!114 &8764485504794449720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955495021675870445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c8d11bc3d4344459ca5ea356db9906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 50
+  hpUI: {fileID: 6590433498781656904}
 --- !u!1 &4517022032035882939
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +653,7 @@ GameObject:
   - component: {fileID: 324105980507049897}
   - component: {fileID: 9127860410831558064}
   - component: {fileID: 5567741644034856245}
+  - component: {fileID: 4441494649335212295}
   m_Layer: 8
   m_Name: BasicAttackCollider
   m_TagString: Untagged
@@ -673,7 +674,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1106041586796544037}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9127860410831558064
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -816,6 +817,18 @@ PolygonCollider2D:
       - {x: 4.1749997, y: -2.09}
       - {x: 4.1749997, y: -1.66}
       - {x: 4.1549997, y: -1.49}
+--- !u!114 &4441494649335212295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7259399218246390297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11626d73e40ca2f4b82c0bf7e7ec4b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8539090426249785642
 GameObject:
   m_ObjectHideFlags: 0

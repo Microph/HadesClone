@@ -16,7 +16,7 @@ public class DamageableObject : MonoBehaviour, IDamageable
         UpdateHpUI();
     }
 
-    private void Awake()
+    private void Start()
     {
         currentHp = maxHp;
         UpdateHpUI();
