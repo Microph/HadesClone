@@ -11,10 +11,23 @@ public class BasicATKSkillToggleButton : MonoBehaviour
 
     public Text textUI;
 
-    public void AddBurnSkill()
+    private bool isBurnOn = false;
+
+    public void ToggleSkill()
     {
-        playerColliderManager.basicAttackCollider.gameObject.SetActive(false);
-        playerColliderManager.basicAttackCollider = basicAttackColliderWithBurn;
-        textUI.text = "BURN";
+        if(isBurnOn)
+        {
+            playerColliderManager.basicAttackCollider.gameObject.SetActive(false);
+            playerColliderManager.basicAttackCollider = normalBasicAttackCollider;
+            textUI.text = "";
+            isBurnOn = false;
+        }
+        else
+        {
+            playerColliderManager.basicAttackCollider.gameObject.SetActive(false);
+            playerColliderManager.basicAttackCollider = basicAttackColliderWithBurn;
+            textUI.text = "BURN";
+            isBurnOn = true;
+        }
     }
 }
