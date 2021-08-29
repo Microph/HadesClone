@@ -92,7 +92,11 @@ public class IsometricPlayerController : MonoBehaviour
 
     private void NormalState()
     {
-        if (DetermineDashingState())
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
+        inputVector = Vector2.ClampMagnitude(inputVector, 1);
+        if (DetermineDashingState(inputVector))
         {
             return;
         }
@@ -104,15 +108,11 @@ public class IsometricPlayerController : MonoBehaviour
         {
             return;
         }
-
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
-        inputVector = Vector2.ClampMagnitude(inputVector, 1);
+        
         MoveCharacter(inputVector, 1);
     }
 
-    private bool DetermineDashingState()
+    private bool DetermineDashingState(Vector2 inputVector)
     {
         if (buttonInputManager.HasDashButtonOnDown())
         {
@@ -120,7 +120,7 @@ public class IsometricPlayerController : MonoBehaviour
             elaspedDashingTime = 0;
             ChangeState(
                 playerCharacterState: Enums.PlayerCharacterState.Dashing,
-                fixedUpdateAction: () => DashingState(currentFacingDirection)
+                fixedUpdateAction: () => DashingState(inputVector.magnitude >= 0.01f ? inputVector : currentFacingDirection)
             );
             playerColliderManager.OnEnterDashingState();
             return true;
@@ -204,6 +204,10 @@ public class IsometricPlayerController : MonoBehaviour
         }
 
         if(DetermineBasicAttackState())
+        {
+            return;
+        }
+        if(DetermineProjectileAttackState())
         {
             return;
         }
