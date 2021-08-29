@@ -5,7 +5,7 @@ public class IsometricPlayerController : MonoBehaviour
 {
     public Enums.PlayerCharacterState currentPlayerCharacterState;
 
-    private InputManager inputManager;
+    private ButtonInputManager buttonInputManager;
     private IsometricCharacterRenderer isoRenderer;
     private Action currentStateFixedUpdateAction;
     private Vector2 currentFacingDirection;
@@ -49,7 +49,7 @@ public class IsometricPlayerController : MonoBehaviour
 
     private void Awake()
     {
-        inputManager = GetComponent<InputManager>();
+        buttonInputManager = GetComponent<ButtonInputManager>();
         rbody = GetComponent<Rigidbody2D>();
         isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
         currentFacingDirection = Vector2.up;
@@ -114,9 +114,9 @@ public class IsometricPlayerController : MonoBehaviour
 
     private bool DetermineDashingState()
     {
-        if (inputManager.HasDashButtonOnDown())
+        if (buttonInputManager.HasDashButtonOnDown())
         {
-            inputManager.ResetDashButtonState();
+            buttonInputManager.ResetDashButtonState();
             elaspedDashingTime = 0;
             ChangeState(
                 playerCharacterState: Enums.PlayerCharacterState.Dashing,
@@ -132,11 +132,11 @@ public class IsometricPlayerController : MonoBehaviour
     private bool DetermineBasicAttackState()
     {
         if(
-            inputManager.HasBasicAttackButtonOnDown()
+            buttonInputManager.HasBasicAttackButtonOnDown()
             && elaspedBasicAttackCoolDown >= basicAttackCooldown
         )
         {
-            inputManager.ResetBasicAttackButtonState();
+            buttonInputManager.ResetBasicAttackButtonState();
             elaspedBasicAttackTime = 0;
             Vector2 faceToCursorDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             isoRenderer.SetDirection(faceToCursorDir.normalized, true);
@@ -158,11 +158,11 @@ public class IsometricPlayerController : MonoBehaviour
     private bool DetermineProjectileAttackState()
     {
         if(
-            inputManager.HasProjectileAttackButtonOnDown()
+            buttonInputManager.HasProjectileAttackButtonOnDown()
             && elaspedProjectileAttackCoolDown >= projectileAttackCooldown
         )
         {
-            inputManager.ResetProjectileAttackButtonState();
+            buttonInputManager.ResetProjectileAttackButtonState();
             elaspedProjectileAttackTime = 0;
             Vector2 faceToCursorDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             isoRenderer.SetDirection(faceToCursorDir.normalized, true);
