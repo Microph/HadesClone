@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2704545278254742495}
   - component: {fileID: 2704545278254742494}
+  - component: {fileID: 6842809263296875973}
   - component: {fileID: 2704545278254742493}
-  - component: {fileID: 2704545278254742492}
-  - component: {fileID: 1297273684658728257}
-  - component: {fileID: 3927820147223177776}
+  - component: {fileID: 6856943982197684391}
+  - component: {fileID: 3515581951014624822}
+  - component: {fileID: 4282881287028029028}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -28,9 +29,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2704545278254742489}
-  m_LocalRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -86,6 +87,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &6842809263296875973
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704545278254742489}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!60 &2704545278254742493
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -96,7 +118,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -125,7 +147,7 @@ PolygonCollider2D:
       - {x: 0.61, y: -0.48999998}
       - {x: 1.1929693, y: -0.15409076}
       - {x: 1.3, y: -0.089999996}
---- !u!114 &2704545278254742492
+--- !u!114 &6856943982197684391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,10 +156,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2704545278254742489}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e565da10646c74fbb81577506d461d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1249c1a616dcb2949b20be8615016548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1297273684658728257
+--- !u!114 &3515581951014624822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sortingOrderOffset: 1000
---- !u!210 &3927820147223177776
+--- !u!210 &4282881287028029028
 SortingGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

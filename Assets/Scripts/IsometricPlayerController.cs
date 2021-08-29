@@ -14,23 +14,38 @@ public class IsometricPlayerController : MonoBehaviour
     [SerializeField]
     private PlayerColliderManager playerColliderManager;
     [SerializeField]
-    private float maxMovementSpeed = 1f;
+    private float maxMovementSpeed;
 
     //Dashing
     [SerializeField]
-    private float dashDuration = 0.15f;
-    private float dashSpeedModifier = 4;
-    private float elaspedDashingTime = 0f;
+    private float dashDuration;
+    [SerializeField]
+    private float dashSpeedModifier;
+    private float elaspedDashingTime = 0;
 
     //Basic Attacking
     [SerializeField]
-    private int basicAttackPoint = 2;
+    private int basicAttackPoint;
     [SerializeField]
-    private float basicAttackDuration = 0.25f;
+    private float basicAttackDuration;
     [SerializeField]
-    private float basicAttackCooldown = 0.1f;
-    private float elaspedBasicAttackTime = 0f;
-    private float elaspedBasicAttackCoolDown = 0f;
+    private float basicAttackCooldown;
+    private float elaspedBasicAttackTime = 0;
+    private float elaspedBasicAttackCoolDown = 0;
+
+    //Projectile Attacking
+    [SerializeField]
+    private GameObject projectilePrefab;
+    [SerializeField]
+    private Transform projectileAttackRangeCenterPivotTransform;
+    [SerializeField]
+    private float projectileSpeed;
+    [SerializeField]
+    private float projectileAttackDuration;
+    [SerializeField]
+    private float projectileAttackCooldown;
+    private float elaspedProjectileAttackTime = 0;
+    private float elaspedProjectileAttackCoolDown = 0;
 
     private void Awake()
     {
@@ -85,6 +100,10 @@ public class IsometricPlayerController : MonoBehaviour
         {
             return;
         }
+        if (DetermineProjectileAttackState())
+        {
+            return;
+        }
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -120,9 +139,10 @@ public class IsometricPlayerController : MonoBehaviour
             inputManager.ResetBasicAttackButtonState();
             elaspedBasicAttackTime = 0;
             Vector2 faceToCursorDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            isoRenderer.SetDirection(faceToCursorDir.normalized, true);
             ChangeState(
                 playerCharacterState: Enums.PlayerCharacterState.BasicAttacking,
-                fixedUpdateAction: () => BasicAttackingState(faceToCursorDir)
+                fixedUpdateAction: () => BasicAttackingState()
             );
             playerColliderManager.OnEnterBasicAttackingState(basicAttackPoint);
             return true;
@@ -130,6 +150,32 @@ public class IsometricPlayerController : MonoBehaviour
         else
         {
             elaspedBasicAttackCoolDown += Time.fixedDeltaTime;
+        }
+
+        return false;
+    }
+
+    private bool DetermineProjectileAttackState()
+    {
+        if(
+            inputManager.HasProjectileAttackButtonOnDown()
+            && elaspedProjectileAttackCoolDown >= projectileAttackCooldown
+        )
+        {
+            inputManager.ResetProjectileAttackButtonState();
+            elaspedProjectileAttackTime = 0;
+            Vector2 faceToCursorDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            isoRenderer.SetDirection(faceToCursorDir.normalized, true);
+            ShootProjectile(faceToCursorDir.normalized);
+            ChangeState(
+                playerCharacterState: Enums.PlayerCharacterState.ProjectileAttacking,
+                fixedUpdateAction: () => ProjectileAttackingState()
+            );
+            return true;
+        }
+        else
+        {
+            elaspedProjectileAttackCoolDown += Time.fixedDeltaTime;
         }
 
         return false;
@@ -161,12 +207,12 @@ public class IsometricPlayerController : MonoBehaviour
         {
             return;
         }
-        
+
         MoveCharacter(dir, dashSpeedModifier);
         elaspedDashingTime += Time.fixedDeltaTime;
     }
 
-    private void BasicAttackingState(Vector2 dir)
+    private void BasicAttackingState()
     {
         if (elaspedBasicAttackTime >= basicAttackDuration)
         {
@@ -179,7 +225,28 @@ public class IsometricPlayerController : MonoBehaviour
             return;
         }
         
-        isoRenderer.SetDirection(dir.normalized, true);
         elaspedBasicAttackTime += Time.fixedDeltaTime;
+    }
+
+    private void ShootProjectile(Vector2 faceToCursorDir)
+    {
+        GameObject obj = Instantiate(projectilePrefab, projectileAttackRangeCenterPivotTransform);
+        Projectile projectile = obj.GetComponent<Projectile>();
+        projectile.Setup(faceToCursorDir, projectileSpeed);
+    }
+
+    private void ProjectileAttackingState()
+    {
+        if (elaspedProjectileAttackTime >= projectileAttackDuration)
+        {
+            ChangeState(
+                playerCharacterState: Enums.PlayerCharacterState.Normal,
+                fixedUpdateAction: NormalState
+            );
+            elaspedProjectileAttackTime = 0; 
+            return;
+        }
+        
+        elaspedProjectileAttackTime += Time.fixedDeltaTime;
     }
 }
