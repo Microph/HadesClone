@@ -3,17 +3,15 @@ using UnityEngine;
 
 public class PlayerColliderManager : MonoBehaviour
 {
+    public PlayerVSEnemyCollider playerVSEnemyCollider;
+    
+    public BasicAttackCollider basicAttackCollider;
+
     [SerializeField]
     private Collider2D mainCollider;
 
     [SerializeField]
-    private PlayerVSEnemyCollider playerVSEnemyCollider;
-
-    [SerializeField]
     private RotateZToLookAtCursor attackRangeRotator;
-
-    [SerializeField]
-    private BasicAttackCollider basicAttackCollider;
 
     private void Reset()
     {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class BasicAttackCollider : MonoBehaviour
 {
-    private int currentAttackPoint = 0;
-    private List<IDamageable> alreadyAttackedList = new List<IDamageable>();
+    protected int currentAttackPoint = 0;
+    protected List<IDamageable> alreadyAttackedList = new List<IDamageable>();
 
     public void Reset()
     {
