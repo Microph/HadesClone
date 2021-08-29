@@ -95,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCollider: {fileID: 7967002114052190361}
   playerVSEnemyCollider: {fileID: 5663674594877769023}
-  basicAttackCollider: {fileID: 5567741644034856245}
+  basicAttackCollider: {fileID: 4441494649335212295}
 --- !u!1 &3339481644051735610
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!210 &2079923368
@@ -325,8 +325,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayerCharacterState: 0
-  maxMovementSpeed: 3
   playerColliderManager: {fileID: 1023716890}
+  maxMovementSpeed: 3
+  dashDuration: 0.15
+  basicAttackPoint: 2
+  basicAttackDuration: 0.25
 --- !u!114 &408326993
 MonoBehaviour:
   m_ObjectHideFlags: 0

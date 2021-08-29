@@ -10,29 +10,29 @@ public class PlayerColliderManager : MonoBehaviour
     private Collider2D playerVSEnemyCollider;
 
     [SerializeField]
-    private Collider2D basicAttackCollider;
+    private BasicAttackCollider basicAttackCollider;
 
-    private void InitialSetup()
+    private void Reset()
     {
         playerVSEnemyCollider.isTrigger = false;
-        basicAttackCollider.enabled = false;
+        basicAttackCollider.Reset();
     }
 
     public void OnEnterNormalState()
     {
-        InitialSetup();
+        Reset();
     }
     
     public void OnEnterDashingState()
     {
-        InitialSetup();
+        Reset();
         //This will leave only mainCollider to block movement on collision, making player temporary pass through only enemies
         playerVSEnemyCollider.isTrigger = true;
     }
 
-    public void OnEnterBasicAttackingState()
+    public void OnEnterBasicAttackingState(int attackPoint)
     {
-        InitialSetup();
-        basicAttackCollider.enabled = true;
+        Reset();
+        basicAttackCollider.OnEnterBasicAttackingState(attackPoint);
     }
 }

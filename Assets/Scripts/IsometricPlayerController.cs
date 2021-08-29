@@ -24,6 +24,8 @@ public class IsometricPlayerController : MonoBehaviour
 
     //Basic Attacking
     [SerializeField]
+    private int basicAttackPoint = 2;
+    [SerializeField]
     private float basicAttackDuration = 0.25f;
     private float elaspedBasicAttackTime = 0f;
 
@@ -95,7 +97,7 @@ public class IsometricPlayerController : MonoBehaviour
                  //TODO: change currentFacingDirection to look at cursor direction
                 fixedUpdateAction: () => BasicAttackingState(currentFacingDirection)
             );
-            playerColliderManager.OnEnterBasicAttackingState();
+            playerColliderManager.OnEnterBasicAttackingState(basicAttackPoint);
             return;
         }
 
