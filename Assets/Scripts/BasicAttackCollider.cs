@@ -27,7 +27,7 @@ public class BasicAttackCollider : MonoBehaviour
             && col.gameObject.tag != "Player"
         )
         {
-            iDamageable.OnBeingDamaged(currentAttackPoint);
+            iDamageable.TakeDamage(currentAttackPoint);
             alreadyAttackedList.Add(iDamageable);
         }
     }

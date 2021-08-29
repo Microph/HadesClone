@@ -56,7 +56,7 @@ public class Projectile : MonoBehaviour
             && col.gameObject.tag != "Player"
         )
         {
-            iDamageable.OnBeingDamaged(attackPoint);
+            iDamageable.TakeDamage(attackPoint);
             Destroy(gameObject);
         }
         else if(col.gameObject.tag == "Wall")
