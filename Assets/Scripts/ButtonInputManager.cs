@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class ButtonInputManager : MonoBehaviour
 {
     public enum ButtonState
     {
@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
 
     private ButtonState dashButtonState = ButtonState.Default;
     private ButtonState basicAttackButtonState = ButtonState.Default;
+    private ButtonState projectileAttackButtonState = ButtonState.Default;
 
     void Update()
     {
@@ -24,10 +25,13 @@ public class InputManager : MonoBehaviour
         {
             basicAttackButtonState = ButtonState.OnDowned;
         }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            projectileAttackButtonState = ButtonState.OnDowned;
+        }
     }
 
-
-    //TODO: Refactor these common patterns
+    //TODO: Maybe refactor these common patterns
     public bool HasDashButtonOnDown()
     {
         return dashButtonState == ButtonState.OnDowned;
@@ -46,5 +50,15 @@ public class InputManager : MonoBehaviour
     public void ResetBasicAttackButtonState()
     {
         basicAttackButtonState = ButtonState.Default;
+    }
+
+    public bool HasProjectileAttackButtonOnDown()
+    {
+        return projectileAttackButtonState == ButtonState.OnDowned;
+    }
+
+    public void ResetProjectileAttackButtonState()
+    {
+        projectileAttackButtonState = ButtonState.Default;
     }
 }
