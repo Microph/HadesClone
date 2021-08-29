@@ -61,6 +61,8 @@ public class IsometricPlayerMovementController : MonoBehaviour
             );
         }
 
+        //Check attack input
+
         Vector2 currentPos = rbody.position;
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");

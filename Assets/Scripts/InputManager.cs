@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         bool isDashButtonDown = Input.GetButtonDown("Dash");
-        Debug.Log("isDashButtonDown" + isDashButtonDown);
+        //Debug.Log("isDashButtonDown" + isDashButtonDown);
         if (isDashButtonDown) 
             dashButtonState = ButtonState.OnDowned;
     }
