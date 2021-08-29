@@ -54,6 +54,10 @@ public class IsometricPlayerController : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
         currentFacingDirection = Vector2.up;
+    }
+
+    private void Start()
+    {
         ChangeState(
             playerCharacterState: Enums.PlayerCharacterState.Normal,
             fixedUpdateAction: NormalState
