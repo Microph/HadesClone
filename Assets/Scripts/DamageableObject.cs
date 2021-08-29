@@ -3,6 +3,9 @@ using UnityEngine;
 public class DamageableObject : MonoBehaviour, IDamageable, IBurnable
 {
     [SerializeField]
+    private bool autoResetHpOnDie = false;
+
+    [SerializeField]
     private int maxHp;
 
     [SerializeField]
@@ -22,6 +25,10 @@ public class DamageableObject : MonoBehaviour, IDamageable, IBurnable
     public void TakeDamage(int damageAmount)
     {
         currentHp -= damageAmount;
+        if(currentHp <= 0 && autoResetHpOnDie)
+        {
+           currentHp = maxHp; 
+        }
         UpdateHpUI();
     }
     

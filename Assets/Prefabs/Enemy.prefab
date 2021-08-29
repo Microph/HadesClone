@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c8d11bc3d4344459ca5ea356db9906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoResetHpOnDie: 1
   maxHp: 20
   hpUI: {fileID: 1335857664018833839}
   burnStatusUI: {fileID: 7593196372301719983}
