@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class IsometricPlayerMovementController : MonoBehaviour
 {
+    public Enums.PlayerCharacterState currentPlayerCharacterState;
+
     public float maxMovementSpeed = 1f;
 
     [SerializeField]
-    private PlayerCollider playerCollider;
+    private PlayerColliderManager playerColliderManager;
+    
     private InputManager inputManager;
     private IsometricCharacterRenderer isoRenderer;
-    private Action currentState; //TODO: rename to something like currentMainFixedUpdateMethod
+    private Action currentStateFixedUpdateAction;
 
     private Vector2 currentFacingDirection;
     private float dashSpeedModifier = 4;
@@ -25,13 +28,24 @@ public class IsometricPlayerMovementController : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         rbody = GetComponent<Rigidbody2D>();
         isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
-        currentState = NormalState;
         currentFacingDirection = Vector2.up;
+        ChangeState(
+            playerCharacterState: Enums.PlayerCharacterState.Normal,
+            fixedUpdateAction: NormalState
+        );
     }
 
     void FixedUpdate()
     {
-        currentState?.Invoke();
+        currentStateFixedUpdateAction?.Invoke();
+    }
+
+    private void ChangeState(Enums.PlayerCharacterState playerCharacterState, Action fixedUpdateAction)
+    {
+        //TODO: wrap ColliderSetup, PlayerCharacterStateEnum, fixedUpdateMethod, etc. inside an object
+        playerColliderManager.OnEnterState(playerCharacterState);
+        currentPlayerCharacterState = playerCharacterState;
+        currentStateFixedUpdateAction = fixedUpdateAction;
     }
 
     private void NormalState()
@@ -41,7 +55,10 @@ public class IsometricPlayerMovementController : MonoBehaviour
         {
             inputManager.ResetDashButtonState();
             elaspedDashingTime = 0;
-            currentState = () => DashState(currentFacingDirection);
+            ChangeState(
+                playerCharacterState: Enums.PlayerCharacterState.Dashing,
+                fixedUpdateAction: () => DashingState(currentFacingDirection)
+            );
         }
 
         Vector2 currentPos = rbody.position;
@@ -56,20 +73,17 @@ public class IsometricPlayerMovementController : MonoBehaviour
         rbody.MovePosition(newPos);
     }
 
-    private void DashState(Vector2 dir)
+    private void DashingState(Vector2 dir)
     {
         if (elaspedDashingTime >= dashDuration)
         {
-            playerCollider.OnExitEnemyCollisionDashState();
-            currentState = NormalState;
+            ChangeState(
+                playerCharacterState: Enums.PlayerCharacterState.Normal,
+                fixedUpdateAction: NormalState
+            );
             return;
         }
-
-        if(playerCollider.isCollidedWithEnemy)
-        {
-            playerCollider.OnEnterEnemyCollisionDashState();
-        }
-
+        
         Vector2 currentPos = rbody.position;
         Vector2 movement = dashSpeedModifier * dir * GetDirectionMovementSpeed(dir, maxMovementSpeed);
         Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
