@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D rbody;
     private Vector2 direction;
     private float moveSpeed;
-    private int attackPoint;
+    protected int attackPoint;
 
     public void Setup(Vector2 direction, float moveSpeed, int attackPoint)
     {
