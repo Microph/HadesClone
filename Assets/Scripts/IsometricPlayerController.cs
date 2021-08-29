@@ -5,27 +5,27 @@ public class IsometricPlayerController : MonoBehaviour
 {
     public Enums.PlayerCharacterState currentPlayerCharacterState;
 
-    public float maxMovementSpeed = 1f;
-
-    [SerializeField]
-    private PlayerColliderManager playerColliderManager;
-    
     private InputManager inputManager;
     private IsometricCharacterRenderer isoRenderer;
     private Action currentStateFixedUpdateAction;
-
     private Vector2 currentFacingDirection;
+    private Rigidbody2D rbody;
+
+    [SerializeField]
+    private PlayerColliderManager playerColliderManager;
+    [SerializeField]
+    private float maxMovementSpeed = 1f;
 
     //Dashing
-    private float dashSpeedModifier = 4;
+    [SerializeField]
     private float dashDuration = 0.15f;
+    private float dashSpeedModifier = 4;
     private float elaspedDashingTime = 0f;
 
     //Basic Attacking
-    private float basicAttackDuration = 0.5f;
+    [SerializeField]
+    private float basicAttackDuration = 0.25f;
     private float elaspedBasicAttackTime = 0f;
-
-    Rigidbody2D rbody;
 
     private void Awake()
     {
@@ -37,6 +37,7 @@ public class IsometricPlayerController : MonoBehaviour
             playerCharacterState: Enums.PlayerCharacterState.Normal,
             fixedUpdateAction: NormalState
         );
+        playerColliderManager.OnEnterNormalState();
     }
 
     void FixedUpdate()
@@ -65,11 +66,9 @@ public class IsometricPlayerController : MonoBehaviour
     private void ChangeState(Enums.PlayerCharacterState playerCharacterState, Action fixedUpdateAction)
     {
         //TODO: wrap ColliderSetup, PlayerCharacterStateEnum, fixedUpdateMethod, etc. inside an object
-        playerColliderManager.OnEnterState(playerCharacterState);
         currentPlayerCharacterState = playerCharacterState;
         currentStateFixedUpdateAction = fixedUpdateAction;
     }
-    
 
     private void NormalState()
     {
@@ -82,6 +81,8 @@ public class IsometricPlayerController : MonoBehaviour
                 playerCharacterState: Enums.PlayerCharacterState.Dashing,
                 fixedUpdateAction: () => DashingState(currentFacingDirection)
             );
+            playerColliderManager.OnEnterDashingState();
+            return;
         }
 
         //Check basic attack input
@@ -91,8 +92,11 @@ public class IsometricPlayerController : MonoBehaviour
             elaspedBasicAttackTime = 0;
             ChangeState(
                 playerCharacterState: Enums.PlayerCharacterState.BasicAttacking,
-                fixedUpdateAction: () => BasicAttackingState(currentFacingDirection) //TODO: change currentFacingDirection to look at cursor direction
+                 //TODO: change currentFacingDirection to look at cursor direction
+                fixedUpdateAction: () => BasicAttackingState(currentFacingDirection)
             );
+            playerColliderManager.OnEnterBasicAttackingState();
+            return;
         }
 
         Vector2 currentPos = rbody.position;
@@ -115,6 +119,7 @@ public class IsometricPlayerController : MonoBehaviour
                 playerCharacterState: Enums.PlayerCharacterState.Normal,
                 fixedUpdateAction: NormalState
             );
+            playerColliderManager.OnEnterNormalState();
             return;
         }
         
@@ -126,9 +131,19 @@ public class IsometricPlayerController : MonoBehaviour
         elaspedDashingTime += Time.fixedDeltaTime;
     }
 
-    private void BasicAttackingState(Vector2 currentFacingDirection)
+    private void BasicAttackingState(Vector2 dir)
     {
-        //TODO: enable basic attack collider
-        throw new NotImplementedException();
+        if (elaspedBasicAttackTime >= basicAttackDuration)
+        {
+            ChangeState(
+                playerCharacterState: Enums.PlayerCharacterState.Normal,
+                fixedUpdateAction: NormalState
+            );
+            playerColliderManager.OnEnterNormalState();
+            return;
+        }
+        
+        isoRenderer.SetDirection(dir.normalized);
+        elaspedBasicAttackTime += Time.fixedDeltaTime;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerColliderManager : MonoBehaviour
@@ -8,22 +9,30 @@ public class PlayerColliderManager : MonoBehaviour
     [SerializeField]
     private Collider2D playerVSEnemyCollider;
 
-    public void OnEnterState(Enums.PlayerCharacterState playerCharacterState)
-    {
-        Reset();
-        switch(playerCharacterState)
-        {
-            case Enums.PlayerCharacterState.Normal:
-                break;
-            case Enums.PlayerCharacterState.Dashing:
-                //This will leave only mainCollider to block movement on collision, making player temporary pass through only enemies
-                playerVSEnemyCollider.isTrigger = true;
-                break;
-        }
-    }
+    [SerializeField]
+    private Collider2D basicAttackCollider;
 
-    private void Reset()
+    private void InitialSetup()
     {
         playerVSEnemyCollider.isTrigger = false;
+        basicAttackCollider.enabled = false;
+    }
+
+    public void OnEnterNormalState()
+    {
+        InitialSetup();
+    }
+    
+    public void OnEnterDashingState()
+    {
+        InitialSetup();
+        //This will leave only mainCollider to block movement on collision, making player temporary pass through only enemies
+        playerVSEnemyCollider.isTrigger = true;
+    }
+
+    public void OnEnterBasicAttackingState()
+    {
+        InitialSetup();
+        basicAttackCollider.enabled = true;
     }
 }
