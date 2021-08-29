@@ -27,7 +27,10 @@ public class IsometricPlayerController : MonoBehaviour
     private int basicAttackPoint = 2;
     [SerializeField]
     private float basicAttackDuration = 0.25f;
+    [SerializeField]
+    private float basicAttackCooldown = 0.1f;
     private float elaspedBasicAttackTime = 0f;
+    private float elaspedBasicAttackCoolDown = 0f;
 
     private void Awake()
     {
@@ -88,17 +91,24 @@ public class IsometricPlayerController : MonoBehaviour
         }
 
         //Check basic attack input
-        if(inputManager.HasBasicAttackButtonOnDown())
+        if(
+            inputManager.HasBasicAttackButtonOnDown()
+            && elaspedBasicAttackCoolDown >= basicAttackCooldown
+        )
         {
             inputManager.ResetBasicAttackButtonState();
             elaspedBasicAttackTime = 0;
+            Vector2 faceToCursorDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             ChangeState(
                 playerCharacterState: Enums.PlayerCharacterState.BasicAttacking,
-                 //TODO: change currentFacingDirection to look at cursor direction
-                fixedUpdateAction: () => BasicAttackingState(currentFacingDirection)
+                fixedUpdateAction: () => BasicAttackingState(faceToCursorDir)
             );
             playerColliderManager.OnEnterBasicAttackingState(basicAttackPoint);
             return;
+        }
+        else
+        {
+            elaspedBasicAttackCoolDown += Time.fixedDeltaTime;
         }
 
         Vector2 currentPos = rbody.position;
@@ -141,11 +151,12 @@ public class IsometricPlayerController : MonoBehaviour
                 playerCharacterState: Enums.PlayerCharacterState.Normal,
                 fixedUpdateAction: NormalState
             );
+            elaspedBasicAttackCoolDown = 0; 
             playerColliderManager.OnEnterNormalState();
             return;
         }
         
-        isoRenderer.SetDirection(dir.normalized);
+        isoRenderer.SetDirection(dir.normalized, true);
         elaspedBasicAttackTime += Time.fixedDeltaTime;
     }
 }

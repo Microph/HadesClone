@@ -27,7 +27,6 @@ public class BasicAttackCollider : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D col)
     {
-        Debug.Log($"{col.gameObject.name}");
         if(col.GetComponent<IDamageable>() is IDamageable iDamageable
             && !alreadyAttackedList.Contains(iDamageable)
         )

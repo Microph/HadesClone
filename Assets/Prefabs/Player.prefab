@@ -329,7 +329,8 @@ MonoBehaviour:
   maxMovementSpeed: 3
   dashDuration: 0.15
   basicAttackPoint: 2
-  basicAttackDuration: 0.25
+  basicAttackDuration: 0.2
+  basicAttackCooldown: 0.5
 --- !u!114 &408326993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,7 +844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1106041586796544037}
   - component: {fileID: 8487641571538512435}
-  - component: {fileID: 3324133158234248550}
+  - component: {fileID: 8099154940267627931}
   m_Layer: 8
   m_Name: AttackRangeCenterPivot
   m_TagString: Untagged
@@ -878,7 +879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e565da10646c74fbb81577506d461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3324133158234248550
+--- !u!114 &8099154940267627931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -887,7 +888,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8539090426249785642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a30d09aa58ce9744dad4ea9b0a7195b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c711f81891d8c1439cbaf29a4a04456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTRA: {fileID: 0}
