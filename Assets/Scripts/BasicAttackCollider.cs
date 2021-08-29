@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class BasicAttackCollider : MonoBehaviour
 {
-    private int currentAttackPoint = 0;
-    private List<IDamageable> alreadyAttackedList = new List<IDamageable>();
+    protected int currentAttackPoint = 0;
+    protected List<IDamageable> alreadyAttackedList = new List<IDamageable>();
 
     public void Reset()
     {
@@ -19,7 +19,7 @@ public class BasicAttackCollider : MonoBehaviour
         currentAttackPoint = attackPoint;
     }
 
-    private void OnTriggerStay2D(Collider2D col)
+    protected virtual void OnTriggerStay2D(Collider2D col)
     {
         if(
             col.GetComponent<IDamageable>() is IDamageable iDamageable
@@ -27,7 +27,7 @@ public class BasicAttackCollider : MonoBehaviour
             && col.gameObject.tag != "Player"
         )
         {
-            iDamageable.OnBeingDamaged(currentAttackPoint);
+            iDamageable.TakeDamage(currentAttackPoint);
             alreadyAttackedList.Add(iDamageable);
         }
     }

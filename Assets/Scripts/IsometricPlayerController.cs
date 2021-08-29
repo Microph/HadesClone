@@ -34,8 +34,7 @@ public class IsometricPlayerController : MonoBehaviour
     private float elaspedBasicAttackCoolDown = 0;
 
     //Projectile Attacking
-    [SerializeField]
-    private GameObject projectilePrefab;
+    public GameObject projectilePrefab;
     [SerializeField]
     private Transform projectileAttackRangeCenterPivotTransform;
     [SerializeField]

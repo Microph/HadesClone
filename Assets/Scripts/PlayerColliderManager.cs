@@ -3,21 +3,19 @@ using UnityEngine;
 
 public class PlayerColliderManager : MonoBehaviour
 {
+    public PlayerVSEnemyCollider playerVSEnemyCollider;
+    
+    public BasicAttackCollider basicAttackCollider;
+
     [SerializeField]
     private Collider2D mainCollider;
 
     [SerializeField]
-    private Collider2D playerVSEnemyCollider;
-
-    [SerializeField]
     private RotateZToLookAtCursor attackRangeRotator;
-
-    [SerializeField]
-    private BasicAttackCollider basicAttackCollider;
 
     private void Reset()
     {
-        playerVSEnemyCollider.isTrigger = false;
+        playerVSEnemyCollider.Reset();
         basicAttackCollider.Reset();
         attackRangeRotator.enabled = true;
     }
@@ -31,7 +29,7 @@ public class PlayerColliderManager : MonoBehaviour
     {
         Reset();
         //This will leave only mainCollider to block movement on collision, making player temporary pass through only enemies
-        playerVSEnemyCollider.isTrigger = true;
+        playerVSEnemyCollider.OnEnterDashingState();
     }
 
     public void OnEnterBasicAttackingState(int attackPoint)

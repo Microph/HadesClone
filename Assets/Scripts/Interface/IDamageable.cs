@@ -1,4 +1,4 @@
-interface IDamageable
+public interface IDamageable
 {
-    public void OnBeingDamaged(int damageAmount);
+    public void TakeDamage(int damageAmount);
 }

@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D rbody;
     private Vector2 direction;
     private float moveSpeed;
-    private int attackPoint;
+    protected int attackPoint;
 
     public void Setup(Vector2 direction, float moveSpeed, int attackPoint)
     {
@@ -49,14 +49,14 @@ public class Projectile : MonoBehaviour
         return finalSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    protected virtual void OnTriggerEnter2D(Collider2D col)
     {
         if(
             col.GetComponent<IDamageable>() is IDamageable iDamageable
             && col.gameObject.tag != "Player"
         )
         {
-            iDamageable.OnBeingDamaged(attackPoint);
+            iDamageable.TakeDamage(attackPoint);
             Destroy(gameObject);
         }
         else if(col.gameObject.tag == "Wall")
