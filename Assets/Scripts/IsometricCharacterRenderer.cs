@@ -19,7 +19,7 @@ public class IsometricCharacterRenderer : MonoBehaviour
     }
 
 
-    public void SetDirection(Vector2 direction){
+    public void SetDirection(Vector2 direction, bool forceUsingStaticDirection = false){
 
         //use the Run states by default
         string[] directionArray = null;
@@ -30,6 +30,11 @@ public class IsometricCharacterRenderer : MonoBehaviour
             //if we are basically standing still, we'll use the Static states
             //we won't be able to calculate a direction if the user isn't pressing one, anyway!
             directionArray = staticDirections;
+        }
+        else if (forceUsingStaticDirection)
+        {
+            directionArray = staticDirections;
+            lastDirection = DirectionToIndex(direction, 8);
         }
         else
         {

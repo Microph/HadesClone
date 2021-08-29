@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RotateZToLookAt : MonoBehaviour
+public class RotateZToLookAtTransform : MonoBehaviour
 {
     public Transform targetTRA;
     
