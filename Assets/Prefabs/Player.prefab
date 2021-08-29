@@ -336,6 +336,7 @@ MonoBehaviour:
   basicAttackCooldown: 0.2
   projectilePrefab: {fileID: 2704545278254742489, guid: 73e1f4e9eee7854488e0bcb0c70822eb, type: 3}
   projectileAttackRangeCenterPivotTransform: {fileID: 3040100160090611723}
+  projectileAttackPoint: 1
   projectileSpeed: 12
   projectileAttackDuration: 0.1
   projectileAttackCooldown: 0.2
@@ -377,7 +378,7 @@ GameObject:
   - component: {fileID: 8764485504794449720}
   m_Layer: 6
   m_Name: MainCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

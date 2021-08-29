@@ -7,11 +7,13 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D rbody;
     private Vector2 direction;
     private float moveSpeed;
+    private int attackPoint;
 
-    public void Setup(Vector2 direction, float moveSpeed)
+    public void Setup(Vector2 direction, float moveSpeed, int attackPoint)
     {
         this.direction = direction;
         this.moveSpeed = moveSpeed;
+        this.attackPoint = attackPoint;
     }
 
     private void Awake()
@@ -29,7 +31,6 @@ public class Projectile : MonoBehaviour
     void FixedUpdate()
     {
         Move(direction, moveSpeed);
-        //TODO: If collide -> Damage -> DestroySelf
     }
 
     private void Move(Vector2 dir, float moveSpeed)
@@ -46,5 +47,21 @@ public class Projectile : MonoBehaviour
         float angle = Vector2.Angle(Vector2.up, normDir) * Mathf.Deg2Rad;
         float finalSpeed = speed * (0.5f + (0.5f * Mathf.Sin(angle)) ); //TODO: replace 0.5 with current Y iso scales setting
         return finalSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(
+            col.GetComponent<IDamageable>() is IDamageable iDamageable
+            && col.gameObject.tag != "Player"
+        )
+        {
+            iDamageable.OnBeingDamaged(attackPoint);
+            Destroy(gameObject);
+        }
+        else if(col.gameObject.tag == "Wall")
+        {
+            Destroy(gameObject);
+        }
     }
 }

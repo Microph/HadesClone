@@ -39,6 +39,8 @@ public class IsometricPlayerController : MonoBehaviour
     [SerializeField]
     private Transform projectileAttackRangeCenterPivotTransform;
     [SerializeField]
+    private int projectileAttackPoint;
+    [SerializeField]
     private float projectileSpeed;
     [SerializeField]
     private float projectileAttackDuration;
@@ -236,7 +238,7 @@ public class IsometricPlayerController : MonoBehaviour
     {
         GameObject obj = Instantiate(projectilePrefab, projectileAttackRangeCenterPivotTransform);
         Projectile projectile = obj.GetComponent<Projectile>();
-        projectile.Setup(faceToCursorDir, projectileSpeed);
+        projectile.Setup(faceToCursorDir, projectileSpeed, projectileAttackPoint);
     }
 
     private void ProjectileAttackingState()
