@@ -6,7 +6,7 @@ public class PlayerColliderManager : MonoBehaviour
     private Collider2D mainCollider;
 
     [SerializeField]
-    private Collider2D dashingCollider;
+    private Collider2D playerVSEnemyCollider;
 
     public void OnEnterState(Enums.PlayerCharacterState playerCharacterState)
     {
@@ -16,13 +16,14 @@ public class PlayerColliderManager : MonoBehaviour
             case Enums.PlayerCharacterState.Normal:
                 break;
             case Enums.PlayerCharacterState.Dashing:
-                dashingCollider.isTrigger = true;
+                //This will leave only mainCollider to block movement on collision, making player temporary pass through only enemies
+                playerVSEnemyCollider.isTrigger = true;
                 break;
         }
     }
 
     private void Reset()
     {
-        dashingCollider.isTrigger = false;
+        playerVSEnemyCollider.isTrigger = false;
     }
 }
