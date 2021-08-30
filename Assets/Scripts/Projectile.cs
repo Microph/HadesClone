@@ -36,14 +36,14 @@ public class Projectile : MonoBehaviour
     private void Move(Vector2 dir, float moveSpeed)
     {
         Vector2 currentPos = rbody.position;
-        Vector2 movement = ScaleVectorToIsoView(dir) * moveSpeed;
+        Vector2 movement = dir * GetMagnitudeInIsometricWorldSpace(dir * moveSpeed);
         Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
         rbody.MovePosition(newPos);
     }
 
-    private Vector2 ScaleVectorToIsoView(Vector2 dir)
+    private float GetMagnitudeInIsometricWorldSpace(Vector2 v)
     {
-        return Vector2.Scale(dir, new Vector2(1, 0.5f)); //TODO: Get value from iso config
+        return Vector2.Scale(v, new Vector2(1, 0.5f)).magnitude; //TODO: Get value from config
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D col)
