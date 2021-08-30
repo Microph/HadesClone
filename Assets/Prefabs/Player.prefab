@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6865987373617547627}
-  - component: {fileID: 5663674594877769023}
   - component: {fileID: 4739760323331357093}
-  m_Layer: 8
+  - component: {fileID: 730436079}
+  - component: {fileID: 730436078}
+  m_Layer: 0
   m_Name: PlayerVSEnemyCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +33,21 @@ Transform:
   m_Father: {fileID: 3339481643503506217}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &5663674594877769023
+--- !u!114 &4739760323331357093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74698696983608963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ffaad0721024e4b9c584ab65d7383a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vsEnemyCollider: {fileID: 730436079}
+  triggerCollider: {fileID: 730436078}
+--- !u!70 &730436079
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,18 +63,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 3, y: 1.5}
   m_Direction: 1
---- !u!114 &4739760323331357093
-MonoBehaviour:
+--- !u!70 &730436078
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74698696983608963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ffaad0721024e4b9c584ab65d7383a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 3, y: 1.5}
+  m_Direction: 1
 --- !u!1 &3339481643503506216
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,8 +407,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6801717702146356754}
-  - component: {fileID: 1609726882708684846}
   - component: {fileID: 4132134706096235403}
+  - component: {fileID: 1030542991}
+  - component: {fileID: 1030542990}
   m_Layer: 8
   m_Name: PlayerVSEnemyColliderWithBurn
   m_TagString: Untagged
@@ -411,7 +431,21 @@ Transform:
   m_Father: {fileID: 3339481643503506217}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &1609726882708684846
+--- !u!114 &4132134706096235403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3343440028125425368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c463a12e7f74940acbe193e1a4f72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vsEnemyCollider: {fileID: 1030542991}
+  triggerCollider: {fileID: 1030542990}
+--- !u!70 &1030542991
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -427,18 +461,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 3, y: 1.5}
   m_Direction: 1
---- !u!114 &4132134706096235403
-MonoBehaviour:
+--- !u!70 &1030542990
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3343440028125425368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71c463a12e7f74940acbe193e1a4f72d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 3, y: 1.5}
+  m_Direction: 1
 --- !u!1 &3955495021675870445
 GameObject:
   m_ObjectHideFlags: 0

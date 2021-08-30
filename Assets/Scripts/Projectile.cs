@@ -36,17 +36,14 @@ public class Projectile : MonoBehaviour
     private void Move(Vector2 dir, float moveSpeed)
     {
         Vector2 currentPos = rbody.position;
-        Vector2 movement = dir * GetDirectionMovementSpeed(dir, moveSpeed);
+        Vector2 movement = ScaleVectorToIsoView(dir) * moveSpeed;
         Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
         rbody.MovePosition(newPos);
     }
 
-    private float GetDirectionMovementSpeed(Vector2 dir, float speed)
+    private Vector2 ScaleVectorToIsoView(Vector2 dir)
     {
-        Vector2 normDir = dir.normalized;
-        float angle = Vector2.Angle(Vector2.up, normDir) * Mathf.Deg2Rad;
-        float finalSpeed = speed * (0.5f + (0.5f * Mathf.Sin(angle)) ); //TODO: replace 0.5 with current Y iso scales setting
-        return finalSpeed;
+        return Vector2.Scale(dir, new Vector2(1, 0.5f)); //TODO: Get value from iso config
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D col)

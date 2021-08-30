@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class PlayerVSEnemyCollider : MonoBehaviour
 {
-    private Collider2D col2D;
-
-    private void Awake()
-    {
-        col2D = GetComponent<Collider2D>();
-    }
+    [SerializeField]
+    private Collider2D vsEnemyCollider;
+    [SerializeField]
+    private Collider2D triggerCollider;
 
     public void Reset()
     {
-        col2D.isTrigger = false;
+        vsEnemyCollider.enabled = true;
+        triggerCollider.enabled = false;
     }
 
     public void OnEnterDashingState()
     {
-        col2D.isTrigger = true;
+        vsEnemyCollider.enabled = false;
+        triggerCollider.enabled = true;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D col)
