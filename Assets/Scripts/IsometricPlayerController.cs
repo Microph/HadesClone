@@ -181,16 +181,16 @@ public class IsometricPlayerController : MonoBehaviour
     private void MoveCharacter(Vector2 dir, float speedModifier)
     {
         Vector2 currentPos = rbody.position;
-        Vector2 movement = ScaleVectorToIsoView(dir) * maxMovementSpeed * speedModifier;
+        Vector2 movement = dir * GetMagnitudeInIsometricWorldSpace(dir * maxMovementSpeed * speedModifier);
         Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
         SetCurrentFacingDirection(movement);
         isoRenderer.SetDirection(movement);
         rbody.MovePosition(newPos);
     }
 
-    private Vector2 ScaleVectorToIsoView(Vector2 dir)
+    private float GetMagnitudeInIsometricWorldSpace(Vector2 v)
     {
-        return Vector2.Scale(dir, new Vector2(1, 0.5f)); //TODO: Get value from iso config
+        return Vector2.Scale(v, new Vector2(1, 0.5f)).magnitude; //TODO: Get value from config
     }
 
     private void DashingState(Vector2 dir)
