@@ -69,14 +69,6 @@ public class IsometricPlayerController : MonoBehaviour
     {
         currentStateFixedUpdateAction?.Invoke();
     }
-
-    private float GetDirectionMovementSpeed(Vector2 dir, float speed)
-    {
-        Vector2 normDir = dir.normalized;
-        float angle = Vector2.Angle(Vector2.up, normDir) * Mathf.Deg2Rad;
-        float finalSpeed = speed * (0.5f + (0.5f * Mathf.Sin(angle)) ); //TODO: replace 0.5 with current Y iso scales setting
-        return finalSpeed;
-    }
     
     private void SetCurrentFacingDirection(Vector2 movement)
     {
@@ -189,11 +181,16 @@ public class IsometricPlayerController : MonoBehaviour
     private void MoveCharacter(Vector2 dir, float speedModifier)
     {
         Vector2 currentPos = rbody.position;
-        Vector2 movement = dir * GetDirectionMovementSpeed(dir, maxMovementSpeed) * speedModifier;
+        Vector2 movement = ScaleVectorToIsoView(dir) * maxMovementSpeed * speedModifier;
         Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
         SetCurrentFacingDirection(movement);
         isoRenderer.SetDirection(movement);
         rbody.MovePosition(newPos);
+    }
+
+    private Vector2 ScaleVectorToIsoView(Vector2 dir)
+    {
+        return Vector2.Scale(dir, new Vector2(1, 0.5f)); //TODO: Get value from iso config
     }
 
     private void DashingState(Vector2 dir)
