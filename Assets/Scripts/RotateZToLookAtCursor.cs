@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotateZToLookAtCursor : MonoBehaviour
 {
-    void Update()
+    void FixedUpdate()
     {
         Vector3 mouseScreenPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 difference = mouseScreenPosition - transform.position;
