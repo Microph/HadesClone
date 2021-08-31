@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
+[ExecuteAlways]
 public class IsometricProjection : MonoBehaviour
 {
         private void Update()
